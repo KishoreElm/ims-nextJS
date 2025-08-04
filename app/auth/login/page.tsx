@@ -48,7 +48,7 @@ export default function LoginPage() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div className='m-4'>
               <label htmlFor="email" className="sr-only">
                 Email address
               </label>
@@ -64,7 +64,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
+            <div className='m-4'>
               <label htmlFor="password" className="sr-only">
                 Password
               </label>

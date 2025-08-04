@@ -36,7 +36,7 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div>
+        <div >
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create your account
           </h2>
@@ -49,7 +49,7 @@ export default function SignupPage() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div className="m-4">
               <label htmlFor="name" className="sr-only">
                 Full Name
               </label>
@@ -65,9 +65,9 @@ export default function SignupPage() {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div>
+            <div className="m-4">
               <label htmlFor="email" className="sr-only">
-                Email address
+              Email address
               </label>
               <input
                 id="email"
@@ -76,12 +76,12 @@ export default function SignupPage() {
                 autoComplete="email"
                 required
                 className="input-field"
-                placeholder="Email address"
+                placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
+            <div className="p-4">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>

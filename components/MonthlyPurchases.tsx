@@ -61,16 +61,18 @@ export default function MonthlyPurchases() {
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <DollarSign className="h-8 w-8 text-green-500" />
-              </div>
+                <div className="flex-shrink-0">
+                <span className="inline-flex items-center justify-center h-8 w-8 rounded-full ">
+                  <span className="text-green-500 text-3xl font-bold">₹</span>
+                </span>
+                </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     Total Amount (6 months)
                   </dt>
                   <dd className="text-2xl font-bold text-gray-900">
-                    ${totalAmount.toLocaleString()}
+                    ₹{totalAmount.toLocaleString()}
                   </dd>
                 </dl>
               </div>
@@ -121,6 +123,7 @@ export default function MonthlyPurchases() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
         {/* Monthly Amount Chart */}
         <div className="bg-white shadow rounded-lg p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Monthly Purchase Amount</h3>
@@ -130,7 +133,7 @@ export default function MonthlyPurchases() {
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip 
-                formatter={(value: number) => [`$${value.toLocaleString()}`, 'Amount']}
+                formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Amount']}
                 labelFormatter={(label) => `Month: ${label}`}
               />
               <Bar dataKey="totalAmount" fill="#10B981" />
@@ -188,7 +191,7 @@ export default function MonthlyPurchases() {
                       {data.month}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${data.totalAmount.toLocaleString()}
+                      ₹{data.totalAmount.toLocaleString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {data.totalItems.toLocaleString()}
