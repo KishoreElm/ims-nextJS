@@ -25,9 +25,10 @@ interface IssueItem {
   quantity: number
   date: string
   ticket?: string
-  serialNumber?: string
   issuedBy?: string
   issuedTo?: string
+  serialNumber?: string
+  description: string
   item: {
     name: string
     unitType: string
@@ -391,6 +392,9 @@ export default function IssueStock() {
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Issued To
                   </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -416,6 +420,9 @@ export default function IssueStock() {
                     </td>
                     <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                       {issue.user.name || '-'}
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                      {issue.description || '-'}
                     </td>
                   </tr>
                 ))}

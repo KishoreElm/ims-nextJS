@@ -32,78 +32,76 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { itemId, userId, quantity, date } = await request.json()
+    // Accept new payload structure
+    const body = await request.json()
+    const { ticket, date, issuedBy, issuedTo, items } = body
 
-    // Validate input
-    if (!itemId || !userId || !quantity || !date) {
+    if (!ticket || !date || !issuedBy || !issuedTo || !items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    // Check if item exists and has sufficient stock
-    const item = await prisma.item.findUnique({
-      where: { id: itemId }
-    })
+    const results = []
 
-    if (!item) {
-      return NextResponse.json(
-        { error: 'Item not found' },
-        { status: 404 }
-      )
-    }
+    for (const item of items) {
+      const { itemId, quantity, serialNumber, description } = item
 
-    if (item.availableStock < quantity) {
-      return NextResponse.json(
-        { error: 'Insufficient stock available' },
-        { status: 400 }
-      )
-    }
-
-    // Check if user exists and is approved
-    const targetUser = await prisma.user.findUnique({
-      where: { id: userId }
-    })
-
-    if (!targetUser) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      )
-    }
-
-    if (!targetUser.isApproved) {
-      return NextResponse.json(
-        { error: 'User is not approved' },
-        { status: 400 }
-      )
-    }
-
-    // Create issue record
-    const issueItem = await prisma.issueItem.create({
-      data: {
-        itemId,
-        userId,
-        quantity,
-        date: new Date(date)
+      if (!itemId || !quantity) {
+        continue // skip invalid
       }
-    })
 
-    // Update item stock
-    await prisma.item.update({
-      where: { id: itemId },
-      data: {
-        totalIssued: {
-          increment: quantity
-        },
-        availableStock: {
-          decrement: quantity
+      // Check item exists and stock
+      const dbItem = await prisma.item.findUnique({
+        where: { id: itemId }
+      })
+
+      if (!dbItem) {
+        results.push({ error: `Item not found: ${itemId}` })
+        continue
+      }
+
+      if (dbItem.availableStock < quantity) {
+        results.push({ error: `Insufficient stock for item: ${dbItem.name}` })
+        continue
+      }
+
+      // Create issue record
+      const issueItem = await prisma.issueItem.create({
+        data: {
+          ticket,
+          quantity,
+          date: new Date(date),
+          serialNumber: serialNumber || '',
+          description: description || '',
+          issuedBy,
+          issuedTo,
+          item: { connect: { id: itemId } },
+          user: { connect: { id: issuedTo } }
         }
-      }
-    })
+      })
 
-    return NextResponse.json(issueItem, { status: 201 })
+      // Update item stock
+      await prisma.item.update({
+        where: { id: itemId },
+        data: {
+          totalIssued: {
+            increment: quantity
+          },
+          availableStock: {
+            decrement: quantity
+          }
+        }
+      })
+
+      results.push(issueItem)
+    }
+
+    return NextResponse.json(
+      { success: true, results },
+      { status: 201 }
+    )
   } catch (error) {
     console.error('Error issuing item:', error)
     return NextResponse.json(
@@ -111,4 +109,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-} 
+}

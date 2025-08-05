@@ -125,14 +125,14 @@ export default function PurchaseEntry() {
     );
   };
 
-  const handleAddItem = () => {
-    setPurchaseItems((prev) => [...prev, initialPurchaseItem]);
-  };
-
+  
   const handleRemoveItem = (index: number) => {
     setPurchaseItems((prev) => prev.filter((_, i) => i !== index));
   };
-
+  
+  const handleAddItem = () => {
+    setPurchaseItems((prev) => [...prev, initialPurchaseItem]);
+  };
   const handleAddSerialNumber = (index: number) => {
     const item = purchaseItems[index];
     const serialNumber = item.serialInput.trim();

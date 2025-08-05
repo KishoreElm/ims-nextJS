@@ -12,9 +12,11 @@ import {
   LogOut,
   UserCheck,
   Plus,
-  TrendingUp
+  TrendingUp,
+  Store
 } from 'lucide-react'
 import MonthlyPurchases from '@/components/MonthlyPurchases'
+import AvailableStockPage from '../available-stock/page'
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth()
@@ -96,6 +98,13 @@ export default function AdminDashboard() {
       icon: Plus,
       href: '/admin/issue',
       color: 'bg-orange-500'
+    },
+    {
+      title: 'Available Stock',
+      description: 'View current stock levels',
+      icon: Store,
+      href: '/admin/available-stock',
+      color: 'bg-yellow-500'
     },
     {
       title: 'Reports',
@@ -248,7 +257,8 @@ export default function AdminDashboard() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Monthly Purchase Analytics</h2>
           <MonthlyPurchases />
         </div>
+       
       </main>
     </div>
   )
-} 
+}

@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env.local("DATABASE_URL")
 }
 
 model User {
@@ -47,37 +47,57 @@ model Item {
 }
 
 model Purchase {
-  id       String   @id @default(cuid())
-  itemId   String
-  userId   String
-  quantity Decimal
-  unitType UnitType
-  amount   Decimal
-  date     DateTime
+  id        String   @id @default(cuid())
+  itemId    String
+  userId    String
+  quantity  Decimal
+  unitType  UnitType
+  amount    Decimal
+  taxRate   Int
+  vendor    String
+  billNumber String
+  poNumber  String
+  date      DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  item     Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  serialNumbers PurchaseSerialNumber[]
 
   @@map("purchases")
 }
 
 model IssueItem {
-  id       String   @id @default(cuid())
-  itemId   String
-  userId   String
-  quantity Decimal
-  date     DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  itemId      String
+  userId      String
+  quantity    Decimal
+  date        DateTime
+  ticket      String
+  serialNumber String
+  description String
+  issuedBy    String
+  issuedTo    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Relations
-  item     Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("issue_items")
+}
+
+model PurchaseSerialNumber {
+  id         String   @id @default(cuid())
+  purchaseId String
+  serial     String
+
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  @@map("purchase_serial_numbers")
 }
 
 enum Role {
@@ -90,4 +110,4 @@ enum UnitType {
   M
   L
   KG
-} 
+}
