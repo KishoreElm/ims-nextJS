@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
         }
       })
 
-      const totalAmount = monthPurchases.reduce((sum, purchase) => sum + Number(purchase.amount), 0)
-      const totalItems = monthPurchases.reduce((sum, purchase) => sum + Number(purchase.quantity), 0)
+      const totalAmount = monthPurchases.reduce((sum: number, purchase) => sum + Number(purchase.amount), 0)
+      const totalItems = monthPurchases.reduce((sum: number, purchase) => sum + Number(purchase.quantity), 0)
       const uniqueItems = new Set(monthPurchases.map(p => p.itemId)).size
 
       monthlyData.push({
