@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import AdminNavBar from "@/components/AdminNavBar";
 
 // Interface definitions (no changes)
 interface Item {
@@ -232,7 +233,9 @@ export default function PurchaseEntry() {
 
   // JSX with simplified onChange handlers
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex">
+      <AdminNavBar/>
+    <div className="min-h-screen bg-gray-50 flex-1">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-3xl font-bold text-gray-900">Purchase Entry</h1>
@@ -454,6 +457,7 @@ export default function PurchaseEntry() {
 
         {/* Recent purchases table remains the same */}
       </main>
+    </div>
     </div>
   );
 }

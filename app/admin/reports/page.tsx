@@ -5,6 +5,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { Download, Filter, TrendingUp, TrendingDown } from 'lucide-react'
 import toast from 'react-hot-toast'
+import AdminNavBar from '@/components/AdminNavBar'
 
 interface StockSummary {
   id: string
@@ -100,7 +101,9 @@ export default function Reports() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex">
+      <AdminNavBar/>
+    <div className="min-h-screen bg-gray-50 flex-1">
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -257,6 +260,7 @@ export default function Reports() {
           </div>
         )}
       </main>
+    </div>
     </div>
   )
 } 

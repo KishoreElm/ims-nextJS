@@ -5,6 +5,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { Plus, Edit, Trash2, Package } from 'lucide-react'
 import toast from 'react-hot-toast'
+import AdminNavBar from '@/components/AdminNavBar'
 
 interface Item {
   id: string
@@ -149,7 +150,9 @@ export default function ItemManagement() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex">
+      <AdminNavBar/>
+    <div className="min-h-screen bg-gray-50 flex-1">
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -351,6 +354,7 @@ export default function ItemManagement() {
           </div>
         </div>
       )}
+    </div>
     </div>
   )
 } 
