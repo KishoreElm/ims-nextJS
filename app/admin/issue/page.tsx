@@ -177,9 +177,9 @@ export default function IssueStock() {
   return (
     <div className="min-h-screen flex">
       <AdminNavBar />
-      <div className="flex-1 bg-gray-50 flex-1">
+      <div className="flex-1 bg-gray-100 flex-1">
         {/* Header */}
-        <header className="bg-white shadow">
+        <header className="bg-[#F3E2D4] shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <div>
@@ -190,7 +190,7 @@ export default function IssueStock() {
               </div>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="btn-primary flex items-center"
+                className="btn-primary flex items-center bg-[#17313E] hover:bg-[#415E72]"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Issue Item

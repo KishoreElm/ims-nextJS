@@ -47,8 +47,8 @@ export default function LoginPage() {
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div className='m-4'>
+          <div className="rounded-md shadow-sm -space-y-px w-full">
+            <div className='m-4 '>
               <label htmlFor="email" className="sr-only">
                 Email address
               </label>
@@ -64,7 +64,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className='m-4'>
+            <div className='m-4 '>
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -74,7 +74,7 @@ export default function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="input-field rounded-b-md"
+                className="input-field rounded-b-md "
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

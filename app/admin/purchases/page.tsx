@@ -235,8 +235,8 @@ export default function PurchaseEntry() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <AdminNavBar/>
-    <div className="min-h-screen bg-gray-50 flex-1">
-      <header className="bg-white shadow">
+    <div className="min-h-screen bg-gray-100 flex-1">
+      <header className="bg-[#F3E2D4] shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-3xl font-bold text-gray-900">Purchase Entry</h1>
           <p className="text-gray-600">Record new purchases</p>
@@ -285,9 +285,9 @@ export default function PurchaseEntry() {
             {purchaseItems.map((item, itemIndex) => (
               <div
                 key={itemIndex}
-                className="mb-6 p-4 border rounded-lg relative"
+                className="mb-6 p-4 border rounded-lg relative "
               >
-                <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
+                <div className="w-[97%] grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
                   {/* Item Select */}
                   <select
                     className="w-full p-2 border rounded"
@@ -356,18 +356,31 @@ export default function PurchaseEntry() {
                       )
                     }
                   >
-                    <option value={18}>18%</option>
-                    <option value={28}>28%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
                   </select>
 
                   {/* GST Total */}
-                  <div className="pt-2 border rounded bg-gray-100 text-center font-semibold">
+                  <div className="pt-4 border rounded bg-gray-100 text-center font-semibold">
                     ₹
                     {(
                       (parseFloat(item.amount) || 0) *
                       (1 + (item.taxRate || 0) / 100)
                     ).toFixed(2)}
                   </div>
+                  {/* Remove Item Button */}
+                  {purchaseItems.length > 1 && (
+                   
+                      <button
+                        type="button"
+                        className=" absolute top-9 right-4 text-red-500"
+                        onClick={() => handleRemoveItem(itemIndex)}
+                      >
+                        <X size={18} />
+                      </button>
+                    
+                  )}
+             
                 </div>
 
                 {/* Serial number input */}
@@ -415,15 +428,7 @@ export default function PurchaseEntry() {
                   </Paper>
                 </div>
 
-                {purchaseItems.length > 1 && (
-                  <button
-                    type="button"
-                    className="absolute top-2 right-2 text-red-500"
-                    onClick={() => handleRemoveItem(itemIndex)}
-                  >
-                    <X size={18} />
-                  </button>
-                )}
+              
               </div>
             ))}
 
@@ -431,7 +436,7 @@ export default function PurchaseEntry() {
             <div className="flex justify-between items-center mt-6">
               <button
                 type="button"
-                className="flex items-center text-blue-500 hover:text-blue-700"
+                className="flex items-center text-[#17313E] hover:text-[#415E72]"
                 onClick={handleAddItem}
               >
                 <Plus size={16} className="mr-1" /> Add Another Item
@@ -439,14 +444,14 @@ export default function PurchaseEntry() {
               <div className="flex justify-end gap-3">
                 <button
                   type="button"
-                  className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-100"
+                  className="px-4 py-2  text-gray-800 border rounded-md bg-gray-200 hover:bg-gray-300"
                   onClick={resetForm}
                 >
                   Reset
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2  text-white rounded-md  bg-[#17313E] hover:bg-[#415E72]"
                 >
                   Record Purchase
                 </button>

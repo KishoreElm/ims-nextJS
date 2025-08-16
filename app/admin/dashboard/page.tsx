@@ -16,7 +16,6 @@ import {
   Store
 } from 'lucide-react'
 import MonthlyPurchases from '@/components/MonthlyPurchases'
-import AvailableStockPage from '../available-stock/page'
 import AdminNavBar from '@/components/AdminNavBar'
 
 export default function AdminDashboard() {
@@ -117,11 +116,11 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       <AdminNavBar />
       <div className="flex-1">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-[#F3E2D4] shadow ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           <div>
@@ -132,9 +131,9 @@ export default function AdminDashboard() {
           </div>
           <button
           onClick={handleLogout}
-          className="flex items-center px-4 py-2 text-gray-700 hover:text-gray-900"
+          className="flex items-center px-4 py-2 text-gray-500 hover:text-[#17313E]"
           >
-          <LogOut className="w-5 h-5 mr-2" />
+          <LogOut className="w-5 h-5 mr-2 text-[#17313E]" />
           Logout
           </button>
         </div>
@@ -142,7 +141,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-gray-100">
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-white overflow-hidden shadow rounded-lg">

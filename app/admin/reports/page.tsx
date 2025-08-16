@@ -101,11 +101,11 @@ export default function Reports() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex">
       <AdminNavBar/>
-    <div className="min-h-screen bg-gray-50 flex-1">
+    <div className="min-h-screen bg-gray-100 flex-1">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-[#F3E2D4] shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
