@@ -9,6 +9,7 @@ import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import AdminNavBar from "@/components/AdminNavBar";
+import RecentPurchases from "@/components/RecentPurchases";
 
 // Interface definitions (no changes)
 interface Item {
@@ -126,11 +127,11 @@ export default function PurchaseEntry() {
     );
   };
 
-  
+
   const handleRemoveItem = (index: number) => {
     setPurchaseItems((prev) => prev.filter((_, i) => i !== index));
   };
-  
+
   const handleAddItem = () => {
     setPurchaseItems((prev) => [...prev, initialPurchaseItem]);
   };
@@ -153,10 +154,10 @@ export default function PurchaseEntry() {
       prev.map((itm, i) =>
         i === index
           ? {
-              ...itm,
-              serialNumbers: [...itm.serialNumbers, serialNumber],
-              serialInput: "",
-            }
+            ...itm,
+            serialNumbers: [...itm.serialNumbers, serialNumber],
+            serialInput: "",
+          }
           : itm
       )
     );
@@ -234,143 +235,143 @@ export default function PurchaseEntry() {
   // JSX with simplified onChange handlers
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      <AdminNavBar/>
-    <div className="min-h-screen bg-gray-100 flex-1">
-      <header className="bg-[#F3E2D4] shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">Purchase Entry</h1>
-          <p className="text-gray-600">Record new purchases</p>
-        </div>
-      </header>
+      <AdminNavBar />
+      <div className="min-h-screen bg-gray-100 flex-1">
+        <header className="bg-[#F3E2D4] shadow">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <h1 className="text-3xl font-bold text-gray-900">Purchase Entry</h1>
+            <p className="text-gray-600">Record new purchases</p>
+          </div>
+        </header>
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <form onSubmit={handleSubmit}>
-          <div className="bg-white shadow rounded-lg mb-8 p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Record New Purchase
-            </h3>
+        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <form onSubmit={handleSubmit}>
+            <div className="bg-white shadow rounded-lg mb-8 p-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Record New Purchase
+              </h3>
 
-            {/* Vendor and document numbers */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <TextField
-                label="Vendor"
-                value={vendor}
-                onChange={(e) => setVendor(e.target.value)}
-                required
-                fullWidth
-              />
-              <TextField
-                label="Bill Number"
-                value={billNumber}
-                onChange={(e) => setBillNumber(e.target.value)}
-                required
-                fullWidth
-              />
-              <TextField
-                label="PO Number"
-                value={poNumber}
-                onChange={(e) => setPoNumber(e.target.value)}
-                fullWidth
-              />
-              <TextField
-                label="Date"
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                fullWidth
-              />
-            </div>
+              {/* Vendor and document numbers */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <TextField
+                  label="Vendor"
+                  value={vendor}
+                  onChange={(e) => setVendor(e.target.value)}
+                  required
+                  fullWidth
+                />
+                <TextField
+                  label="Bill Number"
+                  value={billNumber}
+                  onChange={(e) => setBillNumber(e.target.value)}
+                  required
+                  fullWidth
+                />
+                <TextField
+                  label="PO Number"
+                  value={poNumber}
+                  onChange={(e) => setPoNumber(e.target.value)}
+                  fullWidth
+                />
+                <TextField
+                  label="Date"
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  fullWidth
+                />
+              </div>
 
-            {/* Purchase items */}
-            {purchaseItems.map((item, itemIndex) => (
-              <div
-                key={itemIndex}
-                className="mb-6 p-4 border rounded-lg relative "
-              >
-                <div className="w-[97%] grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
-                  {/* Item Select */}
-                  <select
-                    className="w-full p-2 border rounded"
-                    value={item.itemId}
-                    onChange={(e) =>
-                      handleItemChange(itemIndex, "itemId", e.target.value)
-                    }
-                    required
-                  >
-                    <option value="">Select Item</option>
-                    {items.map((itm) => (
-                      <option key={itm.id} value={itm.id}>
-                        {itm.name}
-                      </option>
-                    ))}
-                  </select>
+              {/* Purchase items */}
+              {purchaseItems.map((item, itemIndex) => (
+                <div
+                  key={itemIndex}
+                  className="mb-6 p-4 border rounded-lg relative "
+                >
+                  <div className="w-[97%] grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
+                    {/* Item Select */}
+                    <select
+                      className="w-full p-2 border rounded"
+                      value={item.itemId}
+                      onChange={(e) =>
+                        handleItemChange(itemIndex, "itemId", e.target.value)
+                      }
+                      required
+                    >
+                      <option value="">Select Item</option>
+                      {items.map((itm) => (
+                        <option key={itm.id} value={itm.id}>
+                          {itm.name}
+                        </option>
+                      ))}
+                    </select>
 
-                  {/* Quantity */}
-                  <TextField
-                    label="Quantity"
-                    type="number"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleItemChange(itemIndex, "quantity", e.target.value)
-                    }
-                    required
-                    fullWidth
-                  />
+                    {/* Quantity */}
+                    <TextField
+                      label="Quantity"
+                      type="number"
+                      value={item.quantity}
+                      onChange={(e) =>
+                        handleItemChange(itemIndex, "quantity", e.target.value)
+                      }
+                      required
+                      fullWidth
+                    />
 
-                  {/* Unit */}
-                  <select
-                    className="w-full p-2 border rounded"
-                    value={item.unitType}
-                    onChange={(e) =>
-                      handleItemChange(itemIndex, "unitType", e.target.value)
-                    }
-                    required
-                  >
-                    <option value="PCS">Pieces</option>
-                    <option value="M">Meters</option>
-                    <option value="L">Liters</option>
-                    <option value="KG">Kilograms</option>
-                  </select>
+                    {/* Unit */}
+                    <select
+                      className="w-full p-2 border rounded"
+                      value={item.unitType}
+                      onChange={(e) =>
+                        handleItemChange(itemIndex, "unitType", e.target.value)
+                      }
+                      required
+                    >
+                      <option value="PCS">Pieces</option>
+                      <option value="M">Meters</option>
+                      <option value="L">Liters</option>
+                      <option value="KG">Kilograms</option>
+                    </select>
 
-                  {/* Amount */}
-                  <TextField
-                    label="Amount (₹)"
-                    type="number"
-                    value={item.amount}
-                    onChange={(e) =>
-                      handleItemChange(itemIndex, "amount", e.target.value)
-                    }
-                    required
-                    fullWidth
-                  />
+                    {/* Amount */}
+                    <TextField
+                      label="Amount (₹)"
+                      type="number"
+                      value={item.amount}
+                      onChange={(e) =>
+                        handleItemChange(itemIndex, "amount", e.target.value)
+                      }
+                      required
+                      fullWidth
+                    />
 
-                  {/* Tax Rate */}
-                  <select
-                    className="w-full p-2 border rounded"
-                    value={item.taxRate}
-                    onChange={(e) =>
-                      handleItemChange(
-                        itemIndex,
-                        "taxRate",
-                        Number(e.target.value)
-                      )
-                    }
-                  >
-                    <option value="18">18%</option>
-                    <option value="28">28%</option>
-                  </select>
+                    {/* Tax Rate */}
+                    <select
+                      className="w-full p-2 border rounded"
+                      value={item.taxRate}
+                      onChange={(e) =>
+                        handleItemChange(
+                          itemIndex,
+                          "taxRate",
+                          Number(e.target.value)
+                        )
+                      }
+                    >
+                      <option value="18">18%</option>
+                      <option value="28">28%</option>
+                    </select>
 
-                  {/* GST Total */}
-                  <div className="pt-4 border rounded bg-gray-100 text-center font-semibold">
-                    ₹
-                    {(
-                      (parseFloat(item.amount) || 0) *
-                      (1 + (item.taxRate || 0) / 100)
-                    ).toFixed(2)}
-                  </div>
-                  {/* Remove Item Button */}
-                  {purchaseItems.length > 1 && (
-                   
+                    {/* GST Total */}
+                    <div className="pt-4 border rounded bg-gray-100 text-center font-semibold">
+                      ₹
+                      {(
+                        (parseFloat(item.amount) || 0) *
+                        (1 + (item.taxRate || 0) / 100)
+                      ).toFixed(2)}
+                    </div>
+                    {/* Remove Item Button */}
+                    {purchaseItems.length > 1 && (
+
                       <button
                         type="button"
                         className=" absolute top-9 right-4 text-red-500"
@@ -378,91 +379,92 @@ export default function PurchaseEntry() {
                       >
                         <X size={18} />
                       </button>
-                    
-                  )}
-             
-                </div>
 
-                {/* Serial number input */}
-                <div className="mb-3">
-                  <label className="block text-sm font-medium mb-1">
-                    Serial Numbers
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <TextField
-                      placeholder="Add serial number and press Enter"
-                      value={item.serialInput}
-                      onChange={(e) =>
-                        handleItemChange(
-                          itemIndex,
-                          "serialInput",
-                          e.target.value
-                        )
-                      }
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          handleAddSerialNumber(itemIndex);
-                        }
-                      }}
-                      fullWidth
-                    />
-                  </div>
-                  <Paper className="mt-2 p-2 min-h-[50px] rounded">
-                    {item.serialNumbers.length > 0 ? (
-                      item.serialNumbers.map((serial, serialIndex) => (
-                        <Chip
-                          key={serialIndex}
-                          label={serial}
-                          onDelete={() =>
-                            handleRemoveSerialNumber(itemIndex, serialIndex)
-                          }
-                          className="m-1"
-                        />
-                      ))
-                    ) : (
-                      <span className="text-sm text-gray-500">
-                        No serial numbers added.
-                      </span>
                     )}
-                  </Paper>
+
+                  </div>
+
+                  {/* Serial number input */}
+                  <div className="mb-3">
+                    <label className="block text-sm font-medium mb-1">
+                      Serial Numbers
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <TextField
+                        placeholder="Add serial number and press Enter"
+                        value={item.serialInput}
+                        onChange={(e) =>
+                          handleItemChange(
+                            itemIndex,
+                            "serialInput",
+                            e.target.value
+                          )
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleAddSerialNumber(itemIndex);
+                          }
+                        }}
+                        fullWidth
+                      />
+                    </div>
+                    <Paper className="mt-2 p-2 min-h-[50px] rounded">
+                      {item.serialNumbers.length > 0 ? (
+                        item.serialNumbers.map((serial, serialIndex) => (
+                          <Chip
+                            key={serialIndex}
+                            label={serial}
+                            onDelete={() =>
+                              handleRemoveSerialNumber(itemIndex, serialIndex)
+                            }
+                            className="m-1"
+                          />
+                        ))
+                      ) : (
+                        <span className="text-sm text-gray-500">
+                          No serial numbers added.
+                        </span>
+                      )}
+                    </Paper>
+                  </div>
+
+
                 </div>
+              ))}
 
-              
-              </div>
-            ))}
-
-            {/* Action Buttons */}
-            <div className="flex justify-between items-center mt-6">
-              <button
-                type="button"
-                className="flex items-center text-[#17313E] hover:text-[#415E72]"
-                onClick={handleAddItem}
-              >
-                <Plus size={16} className="mr-1" /> Add Another Item
-              </button>
-              <div className="flex justify-end gap-3">
+              {/* Action Buttons */}
+              <div className="flex justify-between items-center mt-6">
                 <button
                   type="button"
-                  className="px-4 py-2  text-gray-800 border rounded-md bg-gray-200 hover:bg-gray-300"
-                  onClick={resetForm}
+                  className="flex items-center text-[#17313E] hover:text-[#415E72]"
+                  onClick={handleAddItem}
                 >
-                  Reset
+                  <Plus size={16} className="mr-1" /> Add Another Item
                 </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2  text-white rounded-md  bg-[#17313E] hover:bg-[#415E72]"
-                >
-                  Record Purchase
-                </button>
+                <div className="flex justify-end gap-3">
+                  <button
+                    type="button"
+                    className="px-4 py-2  text-gray-800 border rounded-md bg-gray-200 hover:bg-gray-300"
+                    onClick={resetForm}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2  text-white rounded-md  bg-[#17313E] hover:bg-[#415E72]"
+                  >
+                    Record Purchase
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
 
-        {/* Recent purchases table remains the same */}
-      </main>
-    </div>
+          {/* Recent purchases table remains the same */}
+          <RecentPurchases />
+        </main>
+      </div>
     </div>
   );
 }
